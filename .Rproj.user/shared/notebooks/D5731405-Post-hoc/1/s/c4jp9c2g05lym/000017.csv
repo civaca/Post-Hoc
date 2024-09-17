@@ -1,0 +1,2 @@
+"0","data_social <- read_excel(""./datos_social.xlsx"")"
+"0","data_crecimiento <- read_excel(""./datos_crecimiento.xlsx"")"

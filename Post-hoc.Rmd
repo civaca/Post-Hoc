@@ -1,0 +1,119 @@
+---
+title: "Post-Hoc"
+author: "Cristian Vaca"
+date: "2024-09-06"
+output:  
+  pdf_document:
+    toc: true
+  html_document:
+    toc: true
+    toc_float: true
+    code_folding: show
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
+## Datos 
+
+1. Cargar funciones necesarias
+
+```{r}
+
+library(tidyverse)
+library(data.table)
+library(dtplyr)
+library(readxl)
+library(scales)
+library("kableExtra")
+
+```
+
+2. Siguiente paso, crear tabla 
+
+```{r}
+data_social <- read_excel("./datos_social.xlsx")
+data_crecimiento <- read_excel("./datos_crecimiento.xlsx")
+```
+
+
+## Análisis 
+
+-Calcular el Chi-cuadrado
+```{r}
+
+##Relación entre estilo de vida y habilidades sociales
+ds <- data_social %>% select(-1) %>% as.matrix() 
+rownames(ds) <- data_social$IMC
+chisq.test(ds)
+
+##Relación entre estilo de vida y crecimiento 
+dc <- data_crecimiento %>% select(-1) %>% as.matrix()
+rownames(dc) <- data_crecimiento$IMC
+chisq.test(dc)
+```
+
+- el siguiente paso es el análisis post-hoc 
+```{r}
+
+#de habilidades sociales 
+library("chisq.posthoc.test")
+
+res_s <- chisq.posthoc.test(ds)
+
+
+#de crecimiento 
+
+res_c <- chisq.posthoc.test(dc)
+tabla_final <- res_s %>% full_join(res_c) %>% kable %>% kable_classic()
+tabla_final
+
+
+```
+
+
+
+## Dibujos de práctica 
+
+```{r}
+
+mycolors2 <- c("#e0f3db", "#a8ddb5","#43a2ca")
+ds %>% as_tibble(rownames= "cat") %>% pivot_longer(cols = -1,names_to = "EstiloVida", values_to = "n")  %>% 
+  ggplot(aes(cat,n)) +
+    geom_col(aes(fill=EstiloVida), position = "dodge")+
+   scale_fill_manual(values = mycolors2)+
+   theme_light()+
+  labs(x="Habilidades Sociales")
+
+dc %>% as_tibble(rownames= "cat") %>% pivot_longer(cols = -1,names_to = "EstiloVida", values_to = "n")  %>% 
+  ggplot(aes(cat,n)) +
+    geom_col(aes(fill=EstiloVida), position = "dodge")+
+   scale_fill_manual(values = mycolors2)+
+   theme_light()+
+  labs(x="IMC")
+
+```
+
+## Ejercicios de porcentajes 
+
+```{r}
+
+
+per <- function(vector, x){
+  names <- c(x, "%")
+  x <- tibble(unlist(vector), "%"=label_percent(0.01) (unlist(prop.table(vector))))
+  return( set_names(x, names)) }
+
+data_h <- data_social %>% rename("Habilidades sociales"=IMC)
+                       
+z <- data_h %>% select(-1)
+names_z <- colnames(z)
+map2(z,names_z,per) %>% 
+  reduce(~ cbind(.x, .y)) %>% 
+  cbind(data_h[1]) %>% 
+  kable() %>% kable_classic()
+
+
+```
+

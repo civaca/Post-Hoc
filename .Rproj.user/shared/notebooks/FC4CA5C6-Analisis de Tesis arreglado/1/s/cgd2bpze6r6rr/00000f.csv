@@ -1,0 +1,7 @@
+"0"," "
+"0","ggplot(data = data5, aes(x = IMC_2, y = count)) +"
+"0","  geom_col(fill = ""#72A98F"") +"
+"0","  geom_text(aes(label = etiquetas), vjust = -0.3) +"
+"0","  geom_text(aes(label = count), vjust = 2, hjust = 0.6, col = ""white"") +"
+"0","  labs(x = NULL, y = ""Frecuencia"") +"
+"0","  theme(panel.grid.major = element_line(linetype = ""blank""), panel.grid.minor = element_line(linetype = ""blank""), panel.background = element_rect(fill = ""snow1""))"

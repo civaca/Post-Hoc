@@ -1,0 +1,7 @@
+"0",""
+"0","# ClasporICM"
+"0",""
+"0","# this was needed because usingp[] gives a data.frame"
+"0","data4 <- data1 %>% mutate(IMC_1 = IMC(data1[1], data1[15])) ## histograma"
+"0","fixed <- as.numeric(unlist(data4$IMC_1))"
+"0","hist(fixed)"

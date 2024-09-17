@@ -1,0 +1,2 @@
+"0","data <- read_excel(""Matriz.xlsx"")"
+"0","data1 <- as_tibble(data)"

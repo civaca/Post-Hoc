@@ -1,0 +1,7 @@
+"0","data1 %>%"
+"0","  mutate(IMC_2 = IMC(data1[[11]], data1[[15]])) %>% "
+"0","  mutate(IMC_1 = cut(IMC_2,c(1,18.5,25,30,100), right = FALSE, labels = class_icm)) %>% "
+"0","  group_by(IMC_1) %>% "
+"0","  summarise(count=n()) %>% "
+"0","  filter(!is.na(IMC_1)) %>% "
+"0","  print ()"

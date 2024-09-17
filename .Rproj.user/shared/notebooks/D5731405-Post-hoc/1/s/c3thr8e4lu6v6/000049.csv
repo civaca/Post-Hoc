@@ -1,0 +1,8 @@
+"0",""
+"0","dc %>% as_tibble(rownames= ""cat"") %>% pivot_longer(cols = -1,names_to = ""EstiloVida"", values_to = ""n"")  %>% "
+"0","  ggplot(aes(cat,n)) +"
+"0","    geom_col(aes(fill=EstiloVida), position = ""dodge"")+"
+"0","   scale_fill_manual(values = mycolors2)+"
+"0","   theme_light()+"
+"0","  labs(x=""IMC"")"
+"0",""

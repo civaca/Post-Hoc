@@ -1,0 +1,3 @@
+"0",""
+"0",""
+"0","barplot(table(as.numeric(unlist(data2[51]))))"

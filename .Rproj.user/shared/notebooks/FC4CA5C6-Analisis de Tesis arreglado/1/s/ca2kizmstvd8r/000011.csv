@@ -1,0 +1,2 @@
+"0","tabla <- flextable(b)"
+"0","# save_as_docx(tabla,path=""TAbal1.docx"")"
